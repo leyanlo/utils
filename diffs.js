@@ -1,6 +1,6 @@
 const { exec } = require("child_process");
 
-exec("git log origin/main..", (err, stdout, stderr) => {
+exec(`git log ${process.argv[2] || "origin/main.."}`, (err, stdout, stderr) => {
   if (err) {
     console.error(err);
     return;
