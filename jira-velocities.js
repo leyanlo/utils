@@ -38,7 +38,8 @@ fs.createReadStream(process.argv[2] ?? 'issues.csv')
     });
     const columns = [...weeks.map((w) => format(w, 'P')), 'Unresolved'];
 
-    const users = new Set(issues.map((i) => i.Assignee));
+    const users = new Set(issues.map((i) => i.Assignee).filter(Boolean));
+    users.add('Unassigned');
     // console.log('users:', users);
 
     // points per user per week
@@ -51,7 +52,9 @@ fs.createReadStream(process.argv[2] ?? 'issues.csv')
       const col = issue.Resolved
         ? format(startOfWeek(Date.parse(issue.Resolved)), 'P')
         : 'Unresolved';
-      velocities[issue.Assignee][col] += +issue['Custom field (Story Points)'];
+      velocities[issue.Assignee || 'Unassigned'][col] += +issue[
+        'Custom field (Story Points)'
+      ];
     }
     // console.log('velocities:', velocities);
 
