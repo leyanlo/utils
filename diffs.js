@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+import { exec } from 'child_process';
 
 exec(`git log ${process.argv[2] || 'origin/main..'}`, (err, stdout, stderr) => {
   if (err) {
@@ -14,6 +14,6 @@ exec(`git log ${process.argv[2] || 'origin/main..'}`, (err, stdout, stderr) => {
     const lines = commit.split('\n');
     const title = lines[3].substr(4);
     const link = lines[lines.length - 3].substr(27);
-    console.log(`- ${link} ${title}`);
+    console.log(`!wadd ${link} - ${title}`);
   }
 });
