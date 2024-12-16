@@ -6,7 +6,7 @@ const [org, repo] = execSync('git remote -v')
   .split(/[:/.]/)
   .slice(-3, -1);
 
-const prs = execSync('gh pr list --author "@me"')
+const prs = execSync('gh pr list --author "@me" --draft=false')
   .toString()
   .trim()
   .split('\n')
