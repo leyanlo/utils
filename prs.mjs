@@ -1,19 +1,18 @@
-import { exec } from 'child_process';
+import { execSync } from 'child_process';
 
-exec('gh pr list --author "@me"', (err, stdout, stderr) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+const [org, repo] = execSync('git remote -v')
+  .toString()
+  .split(/\s+/)[1]
+  .split(/[:/.]/)
+  .slice(-3, -1);
 
-  const prs = stdout
-    .trim()
-    .split('\n')
-    .map((line) => line.split('\t').slice(0, 2))
-    .reverse();
-  for (const [id, title] of prs) {
-    console.log(
-      `- https://github.com/openai/openai-dotcom/pull/${id} - ${title}`
-    );
-  }
-});
+const prs = execSync('gh pr list --author "@me"')
+  .toString()
+  .trim()
+  .split('\n')
+  .map((line) => line.split('\t').slice(0, 2))
+  .reverse();
+
+for (const [id, title] of prs) {
+  console.log(`- https://github.com/${org}/${repo}/pull/${id} - ${title}`);
+}
