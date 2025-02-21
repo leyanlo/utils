@@ -5,8 +5,8 @@ show_help() {
   echo "Usage: $0 <commit> <flags>"
   echo ""
   echo "Arguments:"
-  echo " <commit> (optional) Start of the commit range, e.g. HEAD~"
-  echo " <flags> (optional) Flags to pass to git push, e.g. -f"
+  echo "  <commit>      (optional) Start of the commit range, e.g. HEAD~"
+  echo "  <flags>       (optional) Flags to pass to git push, e.g. -f"
   echo ""
   echo "This script cherry-picks a range of commits onto the upstream branch and pushes to origin."
 }
